@@ -1,0 +1,18 @@
+{
+    "mom_dad": {
+        "lamp_lighter": "None",
+        "time_lit": 0
+    },
+    "sophie": {
+        "lamp_lighter": "None",
+        "time_lit": 0
+    },
+    "cedric": {
+    	"lamp_lighter": "None",
+    	"time_lit": 0
+	},
+    "rita": {
+    	"lamp_lighter": "None",
+    	"time_lit": 0
+	}
+} 

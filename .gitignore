@@ -1,2 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
 ftp_server_info.json
+.idea/Pi-Wifi-Distance-Lights.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+__pycache__/
+gitignore.txt
+listener_data.json
+reddit_info.txt
