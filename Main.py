@@ -19,9 +19,10 @@ def check_for_updates():
 
         my_lamp_lighter = listener_data[my_name]
 
-        if lit_time != 0:
-            cur_time = time.time()
-            total_time_lit = time.time() - listener_data[lit_time]
+        time_lit = listener_data[time_lit]
+
+        if time_lit != 0:
+            total_time_lit = time.time() - time_lit
 
             if total_time_lit > 3600:
                 names_leds_map[my_lamp_lighter].off()
@@ -38,6 +39,7 @@ def button_pressed(lamp_to_light):
     lamp_to_light = buds[lamp_to_light]
     listener_data[lamp_to_light] = my_name
     listener_data[lit_time] = time.time()
+    utils.json_to_file(listener_data, filename)
     utils.send_to_ftp_server(filename)
 
 
@@ -50,6 +52,6 @@ button_one.when_pressed = lambda : button_pressed(1)
 
 button_two.when_pressed = lambda : button_pressed(2)
 
-check_for_updates
+check_for_updates()
 
 pause()
