@@ -47,6 +47,7 @@ def check_for_updates():
                     del my_lamp_lighters[index]
                     del times_lit[index]
                 else:
+                    print(lighter)
                     names_leds_map[lighter].on()
 
             if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
