@@ -55,7 +55,7 @@ def check_for_updates():
 
         time.sleep(0.25)
 
-def button_pressed(lamp_to_light):
+def button_pressed(person):
     white_led.on()
 
     utils.get_file_from_ftp_server(filename)
@@ -63,8 +63,15 @@ def button_pressed(lamp_to_light):
 
     cur_time = time.time()
 
-    listener_data[lamp_to_light]['lamp_lighters'].append(my_name)
-    listener_data[lamp_to_light]['times_lit'].append(cur_time)
+    persons_lighters = listener_data[person]['lamp_lighters']
+
+    # Update time
+    if my_name in persons_lighters:
+        index = persons_lighters.index(my_name)
+        listener_data[person]['times_lit'][index] = cur_time
+    else:
+        listener_data[person]['lamp_lighters'].append(my_name)
+        listener_data[person]['times_lit'].append(cur_time)
 
     my_lamp_lighters = listener_data[my_name]['lamp_lighters']
 
