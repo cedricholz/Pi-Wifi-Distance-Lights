@@ -58,28 +58,29 @@ def check_for_updates():
 def button_pressed(loved_one):
     white_led.on()
 
+
     utils.get_file_from_ftp_server(filename)
     listener_data = utils.file_to_json(filename)
 
+    persons_lighters = listener_data[loved_one]['lamp_lighters']
+
+    my_lighters = listener_data[my_name]['lamp_lighters']
+
     cur_time = time.time()
 
-    loved_ones_lighters = listener_data[loved_one]['lamp_lighters']
-
     # Update time
-    if my_name in loved_ones_lighters:
-        index = loved_ones_lighters.index(my_name)
+    if my_name in persons_lighters:
+        index = persons_lighters.index(my_name)
         listener_data[loved_one]['times_lit'][index] = cur_time
     else:
         listener_data[loved_one]['lamp_lighters'].append(my_name)
         listener_data[loved_one]['times_lit'].append(cur_time)
 
-    my_lamp_lighters = listener_data[my_name]['lamp_lighters']
-
     # Reciprocate
-    if loved_one in my_lamp_lighters:
-        if my_name in my_lamp_lighters:
-            index = my_lamp_lighters.index(my_name)
-            listener_data[my_name]['times_list'][index] = cur_time
+    if loved_one in my_lighters:
+        if my_name in my_lighters:
+            index = my_lighters.index(my_name)
+            listener_data[my_name]['times_lit'][index] = cur_time
         else:
             listener_data[my_name]['lamp_lighters'].append(my_name)
             listener_data[my_name]['times_lit'].append(cur_time)
@@ -88,9 +89,10 @@ def button_pressed(loved_one):
     utils.json_to_file(listener_data, filename)
     utils.send_to_ftp_server(filename)
 
+
+
 def button_released():
     white_led.off()
-
 
 button1 = Button(2)
 button2 = Button(3)
@@ -101,4 +103,7 @@ button1.when_released = button_released
 button2.when_pressed = lambda : button_pressed(button2_name)
 button2.when_released = button_released
 
-check_for_updates()
+#check_for_updates()
+
+import time
+time.sleep(10000)
