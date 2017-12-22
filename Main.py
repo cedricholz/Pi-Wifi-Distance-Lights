@@ -55,8 +55,9 @@ def check_for_updates():
                 listener_data[my_name]['lamp_lighters'] = my_lamp_lighters
                 listener_data[myname]['times_lit'] = times_lit
 
-                utils.json_to_file(listener_data, filename)
-                utils.send_to_ftp_server(filename)
+                if len(listener_data) != 0:
+                    utils.json_to_file(listener_data, filename)
+                    utils.send_to_ftp_server(filename)
 
         time.sleep(1)
 
@@ -91,9 +92,9 @@ def button_pressed(loved_one):
             listener_data[my_name]['lamp_lighters'].append(my_name)
             listener_data[my_name]['times_lit'].append(cur_time)
 
-
-    utils.json_to_file(listener_data, filename)
-    utils.send_to_ftp_server(filename)
+    if len(listener_data) != 0:
+        utils.json_to_file(listener_data, filename)
+        utils.send_to_ftp_server(filename)
 
     button_is_pressed = False
 
