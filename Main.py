@@ -33,7 +33,7 @@ def check_for_updates():
         cur_time = time.time()
         for i in range(len(my_lamp_lighters)):
             lighter = my_lamp_lighters[i]
-            time_lit = times_list[i]
+            time_lit = times_lit[i]
 
             total_time_lit = cur_time - time_lit
 
