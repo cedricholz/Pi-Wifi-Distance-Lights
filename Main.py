@@ -105,5 +105,8 @@ button2.when_released = button_released
 
 #check_for_updates()
 
+# Stay on
 import time
+
+
 time.sleep(10000)
