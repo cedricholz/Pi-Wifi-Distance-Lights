@@ -18,13 +18,13 @@ white_led = LED(23)
 
 names_leds_map = {"cedric":LED(27), "sophie":LED(17), "mom_dad":LED(22)}
 
-button_pressed = False
+button_is_pressed = False
 
 time_to_stay_lit = 7200
 
 def check_for_updates():
     while True:
-        if not button_pressed:
+        if not button_is_pressed:
             utils.get_file_from_ftp_server(filename)
             listener_data = utils.file_to_json(filename)
 
@@ -60,7 +60,7 @@ def check_for_updates():
         time.sleep(.25)
 
 def button_pressed(loved_one):
-    button_pressed = True
+    button_is_pressed = True
     white_led.on()
 
     utils.get_file_from_ftp_server(filename)
@@ -93,7 +93,7 @@ def button_pressed(loved_one):
     utils.json_to_file(listener_data, filename)
     utils.send_to_ftp_server(filename)
 
-    button_pressed = False
+    button_is_pressed = False
 
 
 
