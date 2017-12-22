@@ -9,10 +9,10 @@ import time
 
 filename = 'listener_data.json'
 
-my_name = "mom_dad"
+my_name = "sophie"
 
 button1_name = "cedric"
-button2_name = "sophie"
+button2_name = "mom_dad"
 
 white_led = LED(23)
 
