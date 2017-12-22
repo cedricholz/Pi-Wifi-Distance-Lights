@@ -40,14 +40,15 @@ def check_for_updates():
 
                 total_time_lit = cur_time - time_lit
 
+                lighter = my_lamp_lighters[index]
                 #Times up
                 if total_time_lit > time_to_stay_lit:
-                    lighter = my_lamp_lighters[index]
+
                     names_leds_map[lighter].off()
                     del my_lamp_lighters[index]
                     del times_lit[index]
                 else:
-                    print(lighter)
+
                     names_leds_map[lighter].on()
 
             if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
