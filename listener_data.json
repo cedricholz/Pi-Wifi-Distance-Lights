@@ -1,18 +1,18 @@
 {
     "mom_dad": {
-        "lamp_lighter": "None",
-        "time_lit": 0
+        "lamp_lighters": [],
+        "times_lit": []
     },
     "sophie": {
-        "lamp_lighter": "None",
-        "time_lit": 0
+        "lamp_lighters": [],
+        "times_lit": []
     },
     "cedric": {
-    	"lamp_lighter": "None",
-    	"time_lit": 0
+    	"lamp_lighters": [],
+    	"times_lit": []
 	},
     "rita": {
-    	"lamp_lighter": "None",
-    	"time_lit": 0
+    	"lamp_lighters": [],
+    	"times_lit": []
 	}
 } 
