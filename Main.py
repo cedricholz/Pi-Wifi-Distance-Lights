@@ -61,43 +61,41 @@ def check_for_updates():
         time.sleep(1)
 
 def button_pressed(loved_one):
-    try:
-        button_is_pressed = True
-        white_led.on()
 
-        utils.get_file_from_ftp_server(filename)
-        listener_data = utils.file_to_json(filename)
+    button_is_pressed = True
+    white_led.on()
 
-        persons_lighters = listener_data[loved_one]['lamp_lighters']
+    utils.get_file_from_ftp_server(filename)
+    listener_data = utils.file_to_json(filename)
 
-        my_lighters = listener_data[my_name]['lamp_lighters']
+    persons_lighters = listener_data[loved_one]['lamp_lighters']
 
-        cur_time = time.time()
+    my_lighters = listener_data[my_name]['lamp_lighters']
 
-        # Update time
-        if my_name in persons_lighters:
-            index = persons_lighters.index(my_name)
-            listener_data[loved_one]['times_lit'][index] = cur_time
+    cur_time = time.time()
+
+    # Update time
+    if my_name in persons_lighters:
+        index = persons_lighters.index(my_name)
+        listener_data[loved_one]['times_lit'][index] = cur_time
+    else:
+        listener_data[loved_one]['lamp_lighters'].append(my_name)
+        listener_data[loved_one]['times_lit'].append(cur_time)
+
+    # Reciprocate
+    if loved_one in my_lighters:
+        if my_name in my_lighters:
+            index = my_lighters.index(my_name)
+            listener_data[my_name]['times_lit'][index] = cur_time
         else:
-            listener_data[loved_one]['lamp_lighters'].append(my_name)
-            listener_data[loved_one]['times_lit'].append(cur_time)
-
-        # Reciprocate
-        if loved_one in my_lighters:
-            if my_name in my_lighters:
-                index = my_lighters.index(my_name)
-                listener_data[my_name]['times_lit'][index] = cur_time
-            else:
-                listener_data[my_name]['lamp_lighters'].append(my_name)
-                listener_data[my_name]['times_lit'].append(cur_time)
+            listener_data[my_name]['lamp_lighters'].append(my_name)
+            listener_data[my_name]['times_lit'].append(cur_time)
 
 
-        utils.json_to_file(listener_data, filename)
-        utils.send_to_ftp_server(filename)
+    utils.json_to_file(listener_data, filename)
+    utils.send_to_ftp_server(filename)
 
-        button_is_pressed = False
-    except:
-        button_pressed(loved_one)
+    button_is_pressed = False
 
 
 
