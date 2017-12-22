@@ -18,46 +18,49 @@ white_led = LED(23)
 
 names_leds_map = {"cedric":LED(27), "sophie":LED(17), "mom_dad":LED(22)}
 
+button_pressed = False
+
+time_to_stay_lit = 7200
+
 def check_for_updates():
     while True:
-        utils.get_file_from_ftp_server(filename)
-        listener_data = utils.file_to_json(filename)
+        if not button_pressed:
+            utils.get_file_from_ftp_server(filename)
+            listener_data = utils.file_to_json(filename)
 
-        my_lamp_lighters = listener_data[my_name]['lamp_lighters']
+            my_lamp_lighters = listener_data[my_name]['lamp_lighters']
 
-        times_lit = listener_data[my_name]['times_lit']
+            times_lit = listener_data[my_name]['times_lit']
 
-        updated_lamp_lighters = my_lamp_lighters[:]
-        updated_times_lit = times_lit[:]
+            cur_time = time.time()
+            for i in range(len(my_lamp_lighters)):
+                index = len(my_lamp_lighters) - 1 - i
 
-        cur_time = time.time()
-        for i in range(len(my_lamp_lighters)):
-            lighter = my_lamp_lighters[i]
-            time_lit = times_lit[i]
+                time_lit = times_lit[index]
 
-            total_time_lit = cur_time - time_lit
+                total_time_lit = cur_time - time_lit
 
-            #Times up
-            if total_time_lit > 7200:
-                names_leds_map[lighter].off()
-                del updated_lamp_lighters[i]
-                del updated_times_lit[i]
+                #Times up
+                if total_time_lit > time_to_stay_lit:
+                    lighter = my_lamp_lighters[index]
+                    names_leds_map[lighter].off()
+                    del my_lamp_lighters[index]
+                    del times_lit[index]
+                else:
+                    names_leds_map[lighter].on()
 
-            else:
-                names_leds_map[lighter].on()
+            if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
+                listener_data[my_name]['lamp_lighters'] = my_lamp_lighters
+                listener_data[myname]['times_lit'] = times_lit
 
-        if len(my_lamp_lighters) != len(updated_lamp_lighters):
-            listener_data[my_name]['lamp_lighters'] = updated_lamp_lighters
-            listener_data[myname]['times_lit'] = updated_times_lit
+                utils.json_to_file(listener_data, filename)
+                utils.send_to_ftp_server(filename)
 
-            utils.json_to_file(listener_data, filename)
-            utils.send_to_ftp_server(filename)
-
-        time.sleep(0.25)
+        time.sleep(.25)
 
 def button_pressed(loved_one):
+    button_pressed = True
     white_led.on()
-
 
     utils.get_file_from_ftp_server(filename)
     listener_data = utils.file_to_json(filename)
@@ -89,10 +92,13 @@ def button_pressed(loved_one):
     utils.json_to_file(listener_data, filename)
     utils.send_to_ftp_server(filename)
 
+    button_pressed = False
+
 
 
 def button_released():
     white_led.off()
+
 
 button1 = Button(2)
 button2 = Button(3)

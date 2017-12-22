@@ -1,7 +1,7 @@
 import Utils as utils
 
-x = utils.file_to_json("listener_data.json")
+x = [3,4,5]
 
-utils.json_to_file(x, "test.json")
+del x[1]
 
-print(5)
+print(x)
