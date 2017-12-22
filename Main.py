@@ -110,10 +110,10 @@ button1.when_released = button_released
 button2.when_pressed = lambda : button_pressed(button2_name)
 button2.when_released = button_released
 
-#check_for_updates()
+check_for_updates()
 
 # Stay on
-import time
-
-
-time.sleep(10000)
+# import time
+#
+#
+# time.sleep(10000)
