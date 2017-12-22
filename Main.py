@@ -96,6 +96,8 @@ def button_pressed(loved_one):
             listener_data[my_name]['times_lit'].append(cur_time)
 
     if len(listener_data) != 0:
+        print("Listener data")
+        print(listener_data)
         utils.json_to_file(listener_data, filename)
         utils.send_to_ftp_server(filename)
 
