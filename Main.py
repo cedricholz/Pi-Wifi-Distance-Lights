@@ -25,7 +25,7 @@ def check_for_updates():
 
         my_lamp_lighters = listener_data[my_name]['lamp_lighters']
 
-        times_lit = listener_data[myname]['times_lit']
+        times_lit = listener_data[my_name]['times_lit']
 
         updated_lamp_lighters = my_lamp_lighters[:]
         updated_times_lit = times_lit[:]
