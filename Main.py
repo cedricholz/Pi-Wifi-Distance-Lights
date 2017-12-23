@@ -69,8 +69,9 @@ def check_for_updates():
             my_lit_times = get_lit_times(my_name)
 
             cur_time = time.time()
-            for i in range(len(my_lamp_lighters)):
-                index = len(my_lamp_lighters) - 1 - i
+            starting_length = len(my_lamp_lighters)
+            for i in range(len(my_starting_lamp_lighters)):
+                index = len(my_starting_lamp_lighters) - 1 - i
 
                 time_lit = my_lit_times[index]
 
