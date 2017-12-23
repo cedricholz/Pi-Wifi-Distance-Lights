@@ -50,7 +50,7 @@ def get_lamp_lighters(family_member):
     return firebase.get('/family_members/' + family_member + '/lamp_lighters', None)
 
 
-def get_times_lit(family_member):
+def get_lit_times(family_member):
     return firebase.get('/family_members/' + family_member + '/lit_times', None)
 
 
@@ -62,7 +62,7 @@ def check_for_updates():
         for lighter in my_lamp_lighters:
             names_leds_map[lighter].on()
 
-        my_lit_times = get_times_lit()
+        my_lit_times = get_lit_times()
 
         cur_time = time.time()
         for i in range(len(my_lamp_lighters)):
@@ -82,7 +82,7 @@ def check_for_updates():
                 names_leds_map[lighter].on()
 
         if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
-            firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': lit_times})
+            firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
 
         time.sleep(1)
 
