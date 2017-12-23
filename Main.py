@@ -101,7 +101,7 @@ def check_for_updates():
 
 def button_pressed(loved_one):
     white_led.off()
-    sleep(.2)
+    time.sleep(.2)
     white_led.on()
 
     add_member1_to_member2s_lamp_lighters(my_name, loved_one)
