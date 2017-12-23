@@ -50,49 +50,39 @@ def get_lamp_lighters(family_member):
     return firebase.get('/family_members/' + family_member + '/lamp_lighters', None)
 
 
-def get_lit_times(family_member):
+def get_times_lit(family_member):
     return firebase.get('/family_members/' + family_member + '/lit_times', None)
 
 
 def check_for_updates():
     while True:
-        if not button_is_pressed:
-            utils.get_file_from_ftp_server(filename)
-            listener_data = utils.file_to_json(filename)
 
-            my_lamp_lighters = listener_data[my_name]['lamp_lighters']
+        my_lamp_lighters = get_lamp_lighters(my_name)
 
-            for lighter in my_lamp_lighters:
+        for lighter in my_lamp_lighters:
+            names_leds_map[lighter].on()
+
+        my_lit_times = get_times_lit()
+
+        cur_time = time.time()
+        for i in range(len(my_lamp_lighters)):
+            index = len(my_lamp_lighters) - 1 - i
+
+            time_lit = my_lit_times[index]
+
+            total_time_lit = cur_time - time_lit
+
+            lighter = my_lamp_lighters[index]
+            #Times up
+            if total_time_lit > time_to_stay_lit:
+                names_leds_map[lighter].off()
+                del my_lamp_lighters[index]
+                del my_lit_times[index]
+            else:
                 names_leds_map[lighter].on()
 
-            times_lit = listener_data[my_name]['times_lit']
-
-            cur_time = time.time()
-            for i in range(len(my_lamp_lighters)):
-                index = len(my_lamp_lighters) - 1 - i
-
-                time_lit = times_lit[index]
-
-                total_time_lit = cur_time - time_lit
-
-                lighter = my_lamp_lighters[index]
-                #Times up
-                if total_time_lit > time_to_stay_lit:
-
-                    names_leds_map[lighter].off()
-                    del my_lamp_lighters[index]
-                    del times_lit[index]
-                else:
-
-                    names_leds_map[lighter].on()
-
-            if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
-                listener_data[my_name]['lamp_lighters'] = my_lamp_lighters
-                listener_data[myname]['times_lit'] = times_lit
-
-                if len(listener_data) != 0:
-                    utils.json_to_file(listener_data, filename)
-                    utils.send_to_ftp_server(filename)
+        if len(my_lamp_lighters) != len(listener_data[my_name]['lamp_lighters']):
+            firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': lit_times})
 
         time.sleep(1)
 
@@ -120,10 +110,10 @@ button1.when_released = button_released
 button2.when_pressed = lambda : button_pressed(button2_name)
 button2.when_released = button_released
 
-#check_for_updates()
+check_for_updates()
 
 # Stay on
-import time
-
-
-time.sleep(10000)
+# import time
+#
+#
+# time.sleep(10000)
