@@ -59,32 +59,34 @@ def check_for_updates():
 
         my_starting_lamp_lighters = get_lamp_lighters(my_name)
 
-        my_lamp_lighters = my_starting_lamp_lighters[:]
+        if my_starting_lamp_lighters != None:
 
-        for lighter in my_lamp_lighters:
-            names_leds_map[lighter].on()
+            my_lamp_lighters = my_starting_lamp_lighters[:]
 
-        my_lit_times = get_lit_times(my_name)
-
-        cur_time = time.time()
-        for i in range(len(my_lamp_lighters)):
-            index = len(my_lamp_lighters) - 1 - i
-
-            time_lit = my_lit_times[index]
-
-            total_time_lit = cur_time - float(time_lit)
-
-            lighter = my_lamp_lighters[index]
-            #Times up
-            if total_time_lit > time_to_stay_lit:
-                names_leds_map[lighter].off()
-                del my_lamp_lighters[index]
-                del my_lit_times[index]
-            else:
+            for lighter in my_lamp_lighters:
                 names_leds_map[lighter].on()
 
-        if len(my_lamp_lighters) != len(my_starting_lamp_lighters):
-            firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
+            my_lit_times = get_lit_times(my_name)
+
+            cur_time = time.time()
+            for i in range(len(my_lamp_lighters)):
+                index = len(my_lamp_lighters) - 1 - i
+
+                time_lit = my_lit_times[index]
+
+                total_time_lit = cur_time - float(time_lit)
+
+                lighter = my_lamp_lighters[index]
+                #Times up
+                if total_time_lit > time_to_stay_lit:
+                    names_leds_map[lighter].off()
+                    del my_lamp_lighters[index]
+                    del my_lit_times[index]
+                else:
+                    names_leds_map[lighter].on()
+
+            if len(my_lamp_lighters) != len(my_starting_lamp_lighters):
+                firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
 
         time.sleep(1)
 
