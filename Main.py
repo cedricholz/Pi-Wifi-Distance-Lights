@@ -72,7 +72,7 @@ def check_for_updates():
 
             time_lit = my_lit_times[index]
 
-            total_time_lit = cur_time - time_lit
+            total_time_lit = cur_time - float(time_lit)
 
             lighter = my_lamp_lighters[index]
             #Times up
