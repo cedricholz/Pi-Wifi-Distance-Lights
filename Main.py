@@ -2,16 +2,21 @@ from gpiozero import LED, Button
 import Utils as utils
 import time
 from firebase import firebase
+import sys
 
 #Cedric 27
 #Mom_Dad 22
 #Sophie 17
 #White 23
 
-my_name = "cedric"
+# my_name = "cedric"
+# button1_name = "sophie"
+# button2_name = "mom_dad"
 
-button1_name = "sophie"
-button2_name = "mom_dad"
+my_name = argv[1]
+button1_name = argv[2]
+button2_name = argv[3]
+
 
 white_led = LED(23)
 
