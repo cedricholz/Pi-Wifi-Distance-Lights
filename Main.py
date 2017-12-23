@@ -93,12 +93,17 @@ def check_for_updates():
 def button_pressed(loved_one):
     white_led.on()
 
-    add_member1_to_member2s_lamp_lighters(my_name, loved_one)
+    add_member1_to_member2s_lamp_lighters(loved_one, my_name)
 
-    my_lamp_lighters = get_lamp_lighters(my_name)
+    add_member1_to_member2s_lamp_lighters(my_name, my_name)
 
-    if loved_one in my_lamp_lighters:
-        add_member1_to_member2s_lamp_lighters(my_name, my_name)
+    # add_member1_to_member2s_lamp_lighters(my_name, loved_one)
+    #
+    # my_lamp_lighters = get_lamp_lighters(my_name)
+    #
+    # if my_lamp_lighters != None in my_lamp_lighters:
+    #     add_member1_to_member2s_lamp_lighters(my_name, my_name)
+
 
 
 def button_released():
