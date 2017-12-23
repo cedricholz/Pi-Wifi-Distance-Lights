@@ -2,11 +2,13 @@ import Utils as utils
 
 from firebase import firebase
 
-firebase = firebase.FirebaseApplication('https://pi-wifi-distance-lights-d7c21.firebaseio.com/', None)
+url = utils.get_url()
+firebase = firebase.FirebaseApplication(url, None)
 
-my_name = 'sophie'
+my_name = 'cedric'
 
 import time
+
 
 def add_member1_to_member2s_lamp_lighters(member1, member2):
     lamp_lighters = get_lamp_lighters(member2)
@@ -25,7 +27,7 @@ def add_member1_to_member2s_lamp_lighters(member1, member2):
             lamp_lighters.append(member1)
             lit_times.append(member1)
 
-    firebase.put('family_members', member2, {'lamp_lighters': lamp_lighters, 'lit_times':lit_times})
+    firebase.put('family_members', member2, {'lamp_lighters': lamp_lighters, 'lit_times': lit_times})
 
 
 def get_lamp_lighters(family_member):
@@ -35,3 +37,4 @@ def get_lamp_lighters(family_member):
 def get_lit_times(family_member):
     return firebase.get('/family_members/' + family_member + '/lit_times', None)
 
+print(get_lamp_lighters(my_name))

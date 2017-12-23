@@ -8,11 +8,9 @@ from firebase import firebase
 #Sophie 17
 #White 23
 
-filename = 'listener_data.json'
+my_name = "cedric"
 
-my_name = "sophie"
-
-button1_name = "cedric"
+button1_name = "sophie"
 button2_name = "mom_dad"
 
 white_led = LED(23)
@@ -23,7 +21,8 @@ button_is_pressed = False
 
 time_to_stay_lit = 7200
 
-firebase = firebase.FirebaseApplication('https://pi-wifi-distance-lights-d7c21.firebaseio.com/', None)
+url = utils.get_url()
+firebase = firebase.FirebaseApplication(url, None)
 
 
 def add_member1_to_member2s_lamp_lighters(member1, member2):
@@ -85,6 +84,10 @@ def check_for_updates():
                     del my_lit_times[index]
                 else:
                     names_leds_map[lighter].on()
+            if len(my_lamp_lighters) == 3:
+                white_led.on()
+            else:
+                white_led.off()
 
             if len(my_lamp_lighters) != len(my_starting_lamp_lighters):
                 firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
@@ -97,13 +100,6 @@ def button_pressed(loved_one):
     add_member1_to_member2s_lamp_lighters(my_name, loved_one)
 
     add_member1_to_member2s_lamp_lighters(my_name, my_name)
-
-    # add_member1_to_member2s_lamp_lighters(my_name, loved_one)
-    #
-    # my_lamp_lighters = get_lamp_lighters(my_name)
-    #
-    # if my_lamp_lighters != None in my_lamp_lighters:
-    #     add_member1_to_member2s_lamp_lighters(my_name, my_name)
 
 
 
@@ -121,9 +117,3 @@ button2.when_pressed = lambda : button_pressed(button2_name)
 button2.when_released = button_released
 
 check_for_updates()
-
-# Stay on
-# import time
-#
-#
-# time.sleep(10000)

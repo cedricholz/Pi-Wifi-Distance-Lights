@@ -9,3 +9,4 @@ __pycache__/
 gitignore.txt
 listener_data.json
 reddit_info.txt
+server_info.json

@@ -19,6 +19,13 @@ def get_file_from_ftp_server(filename):
         print("Error retrieving File")
 
 
+def get_url():
+    with open("server_info.json") as server_file:
+        info = json.load(server_file)
+        server_file.close()
+    return info['url']
+
+
 def send_to_ftp_server(filename):
     try:
         with open("ftp_server_info.json") as server_file:
