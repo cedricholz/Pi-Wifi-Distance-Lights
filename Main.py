@@ -13,9 +13,9 @@ import sys
 # button1_name = "sophie"
 # button2_name = "mom_dad"
 
-my_name = argv[1]
-button1_name = argv[2]
-button2_name = argv[3]
+my_name = sys.argv[1]
+button1_name = sys.argv[2]
+button2_name = sys.argv[3]
 
 
 white_led = LED(23)
