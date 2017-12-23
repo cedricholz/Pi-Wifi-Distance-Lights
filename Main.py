@@ -41,7 +41,7 @@ def add_member1_to_member2s_lamp_lighters(member1, member2):
             lit_times[index] = cur_time
         else:
             lamp_lighters.append(member1)
-            lit_times.append(member1)
+            lit_times.append(cur_time)
 
     firebase.put('family_members', member2, {'lamp_lighters': lamp_lighters, 'lit_times':lit_times})
 
