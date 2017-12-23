@@ -62,7 +62,7 @@ def check_for_updates():
         for lighter in my_lamp_lighters:
             names_leds_map[lighter].on()
 
-        my_lit_times = get_lit_times()
+        my_lit_times = get_lit_times(my_name)
 
         cur_time = time.time()
         for i in range(len(my_lamp_lighters)):
