@@ -59,7 +59,7 @@ def check_for_updates():
 
         my_starting_lamp_lighters = get_lamp_lighters(my_name)
 
-        my_lamp_lighters = my_beginning_lamp_lighters[:]
+        my_lamp_lighters = my_starting_lamp_lighters[:]
 
         for lighter in my_lamp_lighters:
             names_leds_map[lighter].on()
