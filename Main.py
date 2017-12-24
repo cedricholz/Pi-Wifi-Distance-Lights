@@ -31,7 +31,6 @@ time_to_stay_lit = 7200
 url = utils.get_url()
 firebase = firebase.FirebaseApplication(url, None)
 
-
 def add_member1_to_member2s_lamp_lighters(member1, member2):
     lamp_lighters = get_lamp_lighters(member2)
     lit_times = get_lit_times(member2)
@@ -109,7 +108,6 @@ def button_pressed(loved_one):
     add_member1_to_member2s_lamp_lighters(my_name, loved_one)
 
     add_member1_to_member2s_lamp_lighters(my_name, my_name)
-
 
 
 def button_released():
