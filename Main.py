@@ -13,10 +13,12 @@ import sys
 # button1_name = "sophie"
 # button2_name = "mom_dad"
 
+# Starting dance
+utils.dance()
+
 my_name = sys.argv[1]
 button1_name = sys.argv[2]
 button2_name = sys.argv[3]
-
 
 white_led = LED(23)
 
