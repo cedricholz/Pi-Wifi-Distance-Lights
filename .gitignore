@@ -5,8 +5,6 @@ ftp_server_info.json
 .idea/misc.xml
 .idea/modules.xml
 .idea/workspace.xml
+server_info.json
 __pycache__/
 gitignore.txt
-listener_data.json
-reddit_info.txt
-server_info.json

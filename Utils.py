@@ -46,7 +46,7 @@ def dance():
 
 
 def get_url():
-    with open("server_info.json") as server_file:
+    with open("/home/pi/Pi-Wifi-Distance-Lights/server_info.json") as server_file:
         info = json.load(server_file)
         server_file.close()
     return info['url']
