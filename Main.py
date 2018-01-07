@@ -27,7 +27,7 @@ names_leds_map = {"cedric":LED(27), "sophie":LED(17), "mom_dad":LED(22)}
 button_is_pressed = False
 
 time_to_stay_lit = 10800 # 3 Hours
-time_to_stay_lit = 100
+time_to_stay_lit = 10
 
 url = utils.get_url()
 firebase = firebase.FirebaseApplication(url, None)
@@ -96,7 +96,7 @@ def check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced):
 def check_for_updates():
     previous_lit_times = []
 
-    danced = set()
+    danced = set(my_name)
 
     while True:
 
@@ -107,9 +107,9 @@ def check_for_updates():
             my_lamp_lighters = my_starting_lamp_lighters[:]
             my_lit_times = get_lit_times(my_name)
 
-            my_lamp_lighters, my_lit_times, danced = check_to_turnoff_lights(my_lamp_lighters, my_lit_times, danced)
-
             danced = check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced)
+
+            my_lamp_lighters, my_lit_times, danced = check_to_turnoff_lights(my_lamp_lighters, my_lit_times, danced)
 
             # Dance if first time or button pressed again
             for lighter in my_lamp_lighters:
