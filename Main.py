@@ -75,7 +75,8 @@ def check_to_turnoff_lights(my_lamp_lighters, my_lit_times, danced):
             names_leds_map[lighter].off()
             del my_lamp_lighters[index]
             del my_lit_times[index]
-            danced.remove(lighter)
+            if lighter in danced:
+                danced.remove(lighter)
     return my_lamp_lighters, my_lit_times, danced
 
 
@@ -85,7 +86,8 @@ def check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced):
         cur_lit_time = my_lit_times[i]
         if prev_lit_time != cur_lit_time:
             lighter = my_lamp_lighters[i]
-            danced.remove(lighter)
+            if lighter in danced:
+                danced.remove(lighter)
     return danced
 
 
