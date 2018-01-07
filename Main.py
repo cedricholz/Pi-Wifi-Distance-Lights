@@ -27,7 +27,6 @@ names_leds_map = {"cedric":LED(27), "sophie":LED(17), "mom_dad":LED(22)}
 button_is_pressed = False
 
 time_to_stay_lit = 10800 # 3 Hours
-time_to_stay_lit = 10
 
 url = utils.get_url()
 firebase = firebase.FirebaseApplication(url, None)
