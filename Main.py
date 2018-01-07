@@ -95,7 +95,8 @@ def check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced):
 def check_for_updates():
     previous_lit_times = []
 
-    danced = set(my_name)
+    danced = set()
+    danced.add(my_name)
 
     while True:
 

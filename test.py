@@ -38,4 +38,4 @@ def get_lamp_lighters(family_member):
 def get_lit_times(family_member):
     return firebase.get('/family_members/' + family_member + '/lit_times', None)
 
-add_member1_to_member2s_lamp_lighters("sophie", "cedric")
+add_member1_to_member2s_lamp_lighters("cedric", "cedric")
