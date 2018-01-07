@@ -64,6 +64,8 @@ def button_pressed_dance(lighter_led, names_leds_map, white_led):
         led3.off()
         led4.off()
 
+    turnoff()
+
     prev = -1
     for _ in range(4):
         i = random.randint(0, 3)
