@@ -72,17 +72,17 @@ def button_pressed_dance(lighter_led, names_leds_map, white_led):
         while i == prev:
             i = random.randint(0, 3)
         leds[i].on()
-        time.sleep(.5)
+        time.sleep(1)
         leds[i].off()
         prev = i
 
     turnon()
     time.sleep(1)
     led4.off()
-    time.sleep(.5)
+    time.sleep(1)
     for n in names_leds_map:
         names_leds_map[n].off()
-        time.sleep(.5)
+        time.sleep(1)
     lighter_led.on()
     time.sleep(3)
     lighter_led.off()
