@@ -99,39 +99,40 @@ def check_for_updates():
     danced.add(my_name)
 
     while True:
+        try:
+            my_starting_lamp_lighters = get_lamp_lighters(my_name)
 
-        my_starting_lamp_lighters = get_lamp_lighters(my_name)
+            if my_starting_lamp_lighters != None:
 
-        if my_starting_lamp_lighters != None:
+                my_lamp_lighters = my_starting_lamp_lighters[:]
+                my_lit_times = get_lit_times(my_name)
 
-            my_lamp_lighters = my_starting_lamp_lighters[:]
-            my_lit_times = get_lit_times(my_name)
+                danced = check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced)
 
-            danced = check_lit_again(previous_lit_times, my_lamp_lighters, my_lit_times, danced)
+                my_lamp_lighters, my_lit_times, danced = check_to_turnoff_lights(my_lamp_lighters, my_lit_times, danced)
 
-            my_lamp_lighters, my_lit_times, danced = check_to_turnoff_lights(my_lamp_lighters, my_lit_times, danced)
+                # Dance if first time or button pressed again
+                for lighter in my_lamp_lighters:
+                    if lighter not in danced:
+                        lighter_led = names_leds_map[lighter]
+                        utils.button_pressed_dance(lighter_led, names_leds_map, white_led)
+                        danced.add(lighter)
 
-            # Dance if first time or button pressed again
-            for lighter in my_lamp_lighters:
-                if lighter not in danced:
-                    lighter_led = names_leds_map[lighter]
-                    utils.button_pressed_dance(lighter_led, names_leds_map, white_led)
-                    danced.add(lighter)
+                # Turn on all lights that should be on
+                for lighter in my_lamp_lighters:
+                    names_leds_map[lighter].on()
 
-            # Turn on all lights that should be on
-            for lighter in my_lamp_lighters:
-                names_leds_map[lighter].on()
+                if len(my_lamp_lighters) == 3:
+                    white_led.on()
+                else:
+                    white_led.off()
 
-            if len(my_lamp_lighters) == 3:
-                white_led.on()
-            else:
-                white_led.off()
+                if len(my_lamp_lighters) != len(my_starting_lamp_lighters):
+                    firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
 
-            if len(my_lamp_lighters) != len(my_starting_lamp_lighters):
-                firebase.put('family_members', my_name, {'lamp_lighters': my_lamp_lighters, 'lit_times': my_lit_times})
-
-            previous_lit_times = my_lit_times[:]
-
+                previous_lit_times = my_lit_times[:]
+        except:
+            print("Lost internet Connection.")
         time.sleep(1)
 
 def button_pressed(loved_one):
